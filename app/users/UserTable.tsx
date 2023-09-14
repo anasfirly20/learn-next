@@ -7,7 +7,6 @@ import {
   TableColumn,
   TableRow,
   TableCell,
-  getKeyValue,
 } from "@nextui-org/react";
 
 type TProps = {

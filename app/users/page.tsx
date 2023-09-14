@@ -1,9 +1,17 @@
 import React from "react";
 
-export default function UsersPage() {
+export default async function UsersPage() {
+  const res = await fetch("https://jsonplaceholder.typicode.com/users");
+  const users: TGETUsers[] = await res.json();
+
   return (
-    <div>
+    <>
       <h1>USER PAGE</h1>
-    </div>
+      <ul>
+        {users?.map((user) => (
+          <li key={user?.id}>{user?.name}</li>
+        ))}
+      </ul>
+    </>
   );
 }

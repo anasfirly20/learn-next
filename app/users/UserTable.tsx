@@ -8,6 +8,7 @@ import {
   TableRow,
   TableCell,
 } from "@nextui-org/react";
+import Link from "next/link";
 
 type TProps = {
   users: TGETUsers[];
@@ -26,7 +27,9 @@ export default function UserTable({ users }: TProps) {
           {users?.map((user) => {
             return (
               <TableRow key="1">
-                <TableCell>{user?.name}</TableCell>
+                <TableCell className="cursor-pointer">
+                  <Link href={`users/${user?.id}`}>{user?.name}</Link>
+                </TableCell>
                 <TableCell>{user?.email}</TableCell>
                 <TableCell>{user?.address?.street}</TableCell>
               </TableRow>

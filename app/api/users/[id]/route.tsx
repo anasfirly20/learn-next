@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import schema from "../schema";
 
 type TProps = {
   params: { id: number };
@@ -15,9 +16,10 @@ export function GET(request: NextRequest, { params }: TProps) {
 // PUT by Id
 export async function PUT(request: NextRequest, { params }: TProps) {
   const body = await request.json();
+  const validation = schema.safeParse(body);
 
-  if (!body.name) {
-    return NextResponse.json({ error: "Name is required!" }, { status: 404 });
+  if (!validation.success) {
+    return NextResponse.json(validation.error.errors, { status: 404 });
   }
 
   if (params.id > 10) {

@@ -1,7 +1,6 @@
 import React from "react";
 import UserTable from "../UserTable";
-
-import { sort } from "fast-sort";
+import Link from "next/link";
 
 type TProps = {
   params: { slug: string[] };
@@ -19,6 +18,7 @@ export default async function UsersPage({
     <>
       <h1>USER PAGE</h1>
       <h1>Sort by: {sortBy}</h1>
+      <Link href="/users/new">Create User</Link>
       <UserTable users={users} sortBy={sortBy} />
     </>
   );

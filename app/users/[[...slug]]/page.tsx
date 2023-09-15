@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import UserTable from "../UserTable";
 import Link from "next/link";
 
@@ -17,7 +17,9 @@ export default async function UsersPage({
   return (
     <>
       <h1>USER PAGE</h1>
-      <h1>Sort by: {sortBy}</h1>
+      <Suspense fallback={<p>Loading...</p>}>
+        <h1>Sort by: {sortBy}</h1>
+      </Suspense>
       <Link href="/users/new">Create User</Link>
       <UserTable users={users} sortBy={sortBy} />
     </>

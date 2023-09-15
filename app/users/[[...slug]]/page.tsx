@@ -11,7 +11,7 @@ export default async function UsersPage({
   params: { slug },
   searchParams: { sortBy },
 }: TProps) {
-  const res = await fetch("https://jsonplaceholder.typicode.com/users");
+  const res = await fetch("https://jsonplaceholder.typicode.comx/users");
   const users: TGETUsers[] = await res.json();
 
   return (

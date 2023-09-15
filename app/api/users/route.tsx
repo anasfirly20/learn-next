@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
+// GET
 export function GET(request: NextRequest) {
   return NextResponse.json([
     { id: 1, name: "Firly" },
@@ -7,6 +8,7 @@ export function GET(request: NextRequest) {
   ]);
 }
 
+// POST
 export async function POST(request: NextRequest) {
   const body = await request.json();
   if (!body.name) {

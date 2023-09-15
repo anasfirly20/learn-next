@@ -4,6 +4,7 @@ type TProps = {
   params: { id: number };
 };
 
+// GET by Id
 export function GET(request: NextRequest, { params }: TProps) {
   if (params.id > 10) {
     return NextResponse.json({ error: "User not found" }, { status: 404 });
@@ -11,6 +12,7 @@ export function GET(request: NextRequest, { params }: TProps) {
   return NextResponse.json({ id: 1, name: "Firly" });
 }
 
+// PUT by Id
 export async function PUT(request: NextRequest, { params }: TProps) {
   const body = await request.json();
 
@@ -23,4 +25,13 @@ export async function PUT(request: NextRequest, { params }: TProps) {
   }
 
   return NextResponse.json({ id: 1, name: body.name });
+}
+
+// DELETE by Id
+export function DELETE(request: NextRequest, { params }: TProps) {
+  if (params.id > 10) {
+    return NextResponse.json({ error: "User not found." }, { status: 404 });
+  }
+
+  return NextResponse.json({});
 }

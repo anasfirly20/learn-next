@@ -50,7 +50,7 @@ export default function UserTable({ users, sortBy }: TProps) {
         <TableBody>
           {sortedUsers?.map((user) => {
             return (
-              <TableRow key="1">
+              <TableRow key={user?.id}>
                 <TableCell className="cursor-pointer">
                   <Link href={`users/${user?.id}`}>{user?.name}</Link>
                 </TableCell>

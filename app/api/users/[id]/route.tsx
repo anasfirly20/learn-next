@@ -19,7 +19,7 @@ export async function PUT(request: NextRequest, { params }: TProps) {
   const validation = schema.safeParse(body);
 
   if (!validation.success) {
-    return NextResponse.json(validation.error.errors, { status: 404 });
+    return NextResponse.json(validation.error.errors, { status: 400 });
   }
 
   if (params.id > 10) {

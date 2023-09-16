@@ -1,3 +1,6 @@
+import { ChangeEvent, useEffect, useState } from "react";
+
+// Next UI
 import {
   Modal,
   ModalContent,
@@ -7,13 +10,9 @@ import {
 } from "@nextui-org/modal";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
-import {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useState,
-} from "react";
+
+// swr
+import { useUser } from "@/swr/useUser";
 
 type TProps = {
   isOpen: boolean;
@@ -28,10 +27,19 @@ const initialValue = {
 
 export default function CustomModal({ isOpen, onOpenChange }: TProps) {
   const [data, setData] = useState(initialValue);
+  const { mutate } = useUser();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
+  };
+
+  const handleSubmit = () => {
+    mutate({
+      name: data.name,
+      email: data.email,
+      address: data.address,
+    });
   };
 
   useEffect(() => {
@@ -78,6 +86,7 @@ export default function CustomModal({ isOpen, onOpenChange }: TProps) {
                   color="primary"
                   onPress={() => {
                     console.log("DATA >>", data);
+                    handleSubmit();
                     onClose();
                   }}
                 >

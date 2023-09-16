@@ -10,35 +10,30 @@ import UserTable from "./UserTable";
 
 // Next UI
 import { useDisclosure } from "@nextui-org/use-disclosure";
-import { useState } from "react";
+
+// Api
+import { useQuery } from "@tanstack/react-query";
+import { getAllUsers } from "../../api/routes/users";
 
 type TProps = {
   searchParams: { sortBy: string };
 };
 
-const initialValue = {
-  name: "",
-  email: "",
-  address: "",
-};
-
 export default function UserPage({ searchParams: { sortBy } }: TProps) {
-  const { users, isLoading } = useUser();
-
+  // Modal Next UI
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-  const [data, setData] = useState(initialValue);
+  // swr
+  // const { users, isLoading } = useUser();
+
+  // tanstack query
+  const { data, isLoading } = useQuery(["usersData"], () => getAllUsers());
 
   return (
     <>
       <CustomButton label="Add User" color="primary" onPress={onOpen} />
-      <UserTable users={users} isLoading={isLoading} sortBy={sortBy} />
-      <CustomModal
-        isOpen={isOpen}
-        onOpenChange={onOpenChange}
-        data={data}
-        setData={setData}
-      />
+      <UserTable users={data} isLoading={isLoading} sortBy={sortBy} />
+      <CustomModal isOpen={isOpen} onOpenChange={onOpenChange} />
     </>
   );
 }

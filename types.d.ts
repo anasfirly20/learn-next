@@ -1,29 +1,9 @@
 type TGETUsers = {
   id: number;
-  name: string;
-  username: string;
   email: string;
-  address: string;
-  phone: string;
-  website: string;
-  company: TCompany;
-};
-
-type TCompany = {
   name: string;
-  catchPhrase: string;
-  bs: string;
-};
-
-type TGeo = {
-  lat: string;
-  lng: string;
-};
-
-type TAddress = {
-  street: string;
-  suite: string;
-  city: string;
-  zipcode: string;
-  geo: TGeo;
+  address: string;
+  followers: number;
+  isActive: boolean;
+  registeredAt: string;
 };

@@ -5,7 +5,17 @@ export const getAllUsers = async () => {
   return res.data;
 };
 
-export const PostUser = async (body) => {
+export const postUser = async (body) => {
   const res = await api.post("/users", body);
+  return res.data;
+};
+
+export const putUser = async (userId, body) => {
+  const res = await api.post(`/users/${userId}`, body);
+  return res.data;
+};
+
+export const deleteUser = async (userId) => {
+  const res = await api.delete(`/users/${userId}`);
   return res.data;
 };

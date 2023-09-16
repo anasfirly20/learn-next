@@ -13,7 +13,8 @@ import { Input } from "@nextui-org/input";
 
 // Api
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { PostUser } from "@/api/routes/users";
+import { postUser } from "@/api/routes/users";
+import toast from "react-hot-toast";
 
 type TProps = {
   isOpen: boolean;
@@ -35,9 +36,11 @@ export default function CustomModal({ isOpen, onOpenChange }: TProps) {
     setData({ ...data, [name]: value });
   };
 
-  const newUserMutation = useMutation(PostUser, {
+  const newUserMutation = useMutation(postUser, {
     onSuccess: () => {
       queryClient.invalidateQueries(["usersData"]);
+      toast.success("New user has been added");
+      setData(initialValue);
     },
     onError: (err) => console.log(err),
   });

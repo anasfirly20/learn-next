@@ -25,7 +25,7 @@ export default function UserTable({ users, sortBy }: TProps) {
       case "email":
         return user.email;
       case "address":
-        return user.address.street;
+        return user.address;
       default:
         return "";
     }
@@ -55,7 +55,7 @@ export default function UserTable({ users, sortBy }: TProps) {
                   <Link href={`users/${user?.id}`}>{user?.name}</Link>
                 </TableCell>
                 <TableCell>{user?.email}</TableCell>
-                <TableCell>{user?.address?.street}</TableCell>
+                <TableCell>{user?.address}</TableCell>
               </TableRow>
             );
           })}

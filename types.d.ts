@@ -3,7 +3,7 @@ type TGETUsers = {
   name: string;
   username: string;
   email: string;
-  address: TAddress;
+  address: string;
   phone: string;
   website: string;
   company: TCompany;

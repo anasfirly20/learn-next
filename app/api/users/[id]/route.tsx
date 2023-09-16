@@ -49,10 +49,18 @@ export async function PUT(request: NextRequest, { params }: TProps) {
 }
 
 // DELETE by Id
-export function DELETE(request: NextRequest, { params }: TProps) {
-  // if (params.id > 10) {
-  //   return NextResponse.json({ error: "User not found." }, { status: 404 });
-  // }
+export async function DELETE(request: NextRequest, { params }: TProps) {
+  const user = await prisma.user.findUnique({
+    where: { id: parseInt(params.id) },
+  });
+
+  if (!user) {
+    return NextResponse.json({ error: "User not found." }, { status: 404 });
+  }
+
+  const deletedUser = await prisma.user.delete({
+    where: { id: user.id },
+  });
 
   return NextResponse.json({});
 }

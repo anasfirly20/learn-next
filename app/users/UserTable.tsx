@@ -12,18 +12,20 @@ import Link from "next/link";
 import { sort } from "fast-sort";
 
 // Api
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@nextui-org/react";
-import { deleteUser } from "@/api/routes/users";
+import { deleteUser, getAllUsers } from "@/api/routes/users";
 import toast from "react-hot-toast";
 
 type TProps = {
-  users: TGETUsers[];
   sortBy: string;
-  isLoading: boolean;
 };
 
-export default function UserTable({ users, sortBy, isLoading }: TProps) {
+export default function UserTable({ sortBy }: TProps) {
+  const { data = [], isLoading } = useQuery<TGETUsers[]>(["usersData"], () =>
+    getAllUsers()
+  );
+
   // Helper function to compute the sorting key
   const getSortingKey = (user: TGETUsers) => {
     switch (sortBy) {
@@ -37,7 +39,7 @@ export default function UserTable({ users, sortBy, isLoading }: TProps) {
         return "";
     }
   };
-  const sortedUsers = sort(users).asc(getSortingKey);
+  const sortedUsers = sort(data).asc(getSortingKey);
 
   const queryClient = useQueryClient();
   const deleteUserMutation = useMutation(deleteUser, {

@@ -11,10 +11,6 @@ import UserTable from "./UserTable";
 // Next UI
 import { useDisclosure } from "@nextui-org/use-disclosure";
 
-// Api
-import { useQuery } from "@tanstack/react-query";
-import { getAllUsers } from "../../api/routes/users";
-
 type TProps = {
   searchParams: { sortBy: string };
 };
@@ -26,13 +22,10 @@ export default function UserPage({ searchParams: { sortBy } }: TProps) {
   // swr
   // const { users, isLoading } = useUser();
 
-  // tanstack query
-  const { data, isLoading } = useQuery(["usersData"], () => getAllUsers());
-
   return (
     <>
       <CustomButton label="Add User" color="primary" onPress={onOpen} />
-      <UserTable users={data} isLoading={isLoading} sortBy={sortBy} />
+      <UserTable sortBy={sortBy} />
       <CustomModal isOpen={isOpen} onOpenChange={onOpenChange} />
     </>
   );

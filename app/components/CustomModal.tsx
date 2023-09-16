@@ -1,54 +1,87 @@
-import React from "react";
-
 import {
   Modal,
   ModalContent,
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Button,
-  useDisclosure,
-} from "@nextui-org/react";
+} from "@nextui-org/modal";
+import { Button } from "@nextui-org/button";
+import { Input } from "@nextui-org/input";
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 
-export default function App() {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+type TProps = {
+  isOpen: boolean;
+  onOpenChange: () => void;
+};
+
+const initialValue = {
+  name: "",
+  email: "",
+  address: "",
+};
+
+export default function CustomModal({ isOpen, onOpenChange }: TProps) {
+  const [data, setData] = useState(initialValue);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setData({ ...data, [name]: value });
+  };
+
+  useEffect(() => {
+    console.log("DAA>>", data);
+  }, [data]);
 
   return (
     <>
-      <Button onPress={onOpen}>Open Modal</Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                Modal Title
+                Add new user
               </ModalHeader>
               <ModalBody>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Magna exercitation reprehenderit magna aute tempor cupidatat
-                  consequat elit dolor adipisicing. Mollit dolor eiusmod sunt ex
-                  incididunt cillum quis. Velit duis sit officia eiusmod Lorem
-                  aliqua enim laboris do dolor eiusmod. Et mollit incididunt
-                  nisi consectetur esse laborum eiusmod pariatur proident Lorem
-                  eiusmod et. Culpa deserunt nostrud ad veniam.
-                </p>
+                <Input
+                  variant="underlined"
+                  type="text"
+                  label="Name"
+                  name="name"
+                  value={data?.name}
+                  onChange={(e) => handleChange(e)}
+                />
+                <Input
+                  variant="underlined"
+                  type="email"
+                  label="Email"
+                  name="email"
+                  value={data?.email}
+                  onChange={(e) => handleChange(e)}
+                />
+                <Input
+                  variant="underlined"
+                  type="text"
+                  label="Address"
+                  name="address"
+                  value={data?.address}
+                  onChange={(e) => handleChange(e)}
+                />
               </ModalBody>
               <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
-                  Close
-                </Button>
-                <Button color="primary" onPress={onClose}>
-                  Action
+                <Button
+                  color="primary"
+                  onPress={() => {
+                    console.log("DATA >>", data);
+                    onClose();
+                  }}
+                >
+                  Add user
                 </Button>
               </ModalFooter>
             </>
@@ -58,3 +91,4 @@ export default function App() {
     </>
   );
 }
+//

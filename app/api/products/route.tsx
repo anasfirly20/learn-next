@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import schema from "../users/schema";
+import schema from "./schema";
 
 // GET
 export function GET(req: NextRequest) {

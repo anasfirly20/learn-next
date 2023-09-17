@@ -8,6 +8,7 @@ import { Providers } from "./providers";
 // Components
 import Navbar from "./Navbar";
 import { Toaster } from "react-hot-toast";
+import AuthProvider from "./auth/provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,15 +25,17 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={inter.className}>
-        <Toaster
-          toastOptions={{
-            duration: 2000,
-          }}
-        />
-        <Providers>
-          <Navbar />
-          <main className="px-[4vw] py-[2vh]">{children}</main>
-        </Providers>
+        <AuthProvider>
+          <Toaster
+            toastOptions={{
+              duration: 2000,
+            }}
+          />
+          <Providers>
+            <Navbar />
+            <main className="px-[4vw] py-[2vh]">{children}</main>
+          </Providers>
+        </AuthProvider>
       </body>
     </html>
   );

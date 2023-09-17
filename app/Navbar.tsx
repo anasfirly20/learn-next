@@ -7,6 +7,7 @@ export default function Navbar() {
       <Link href="/">Home</Link>
       <Link href="/users">Users</Link>
       <Link href="/upload">Upload</Link>
+      <Link href="/api/auth/signin">Sign In</Link>
     </nav>
   );
 }

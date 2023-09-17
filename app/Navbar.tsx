@@ -6,6 +6,7 @@ export default function Navbar() {
     <nav className="flex w-full sticky top-0 justify-between px-[20vw] py-[1vh] bg-cyan-700">
       <Link href="/">Home</Link>
       <Link href="/users">Users</Link>
+      <Link href="/upload">Upload</Link>
     </nav>
   );
 }

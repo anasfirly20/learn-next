@@ -13,9 +13,13 @@ import { sort } from "fast-sort";
 
 // Api
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Button } from "@nextui-org/react";
+import { Button, Input } from "@nextui-org/react";
 import { deleteUser, getAllUsers } from "@/api/routes/users";
+
+// Miscellaneous
 import toast from "react-hot-toast";
+import { Icon } from "@iconify/react";
+import { useEffect, useState } from "react";
 
 type TProps = {
   sortBy: string;
@@ -25,6 +29,15 @@ export default function UserTable({ sortBy }: TProps) {
   const { data = [], isLoading } = useQuery<TGETUsers[]>(["usersData"], () =>
     getAllUsers()
   );
+
+  const [modifiedData, setModifiedData] = useState<TGETUsers[]>([]);
+
+  useEffect(() => {
+    if (data) {
+      const modData = data?.map((e) => ({ ...e, isEdit: false }));
+      setModifiedData(modData);
+    }
+  }, [data]);
 
   // Helper function to compute the sorting key
   const getSortingKey = (user: TGETUsers) => {
@@ -39,7 +52,7 @@ export default function UserTable({ sortBy }: TProps) {
         return "";
     }
   };
-  const sortedUsers = sort(data).asc(getSortingKey);
+  const sortedUsers = sort(modifiedData).asc(getSortingKey);
 
   const queryClient = useQueryClient();
   const deleteUserMutation = useMutation(deleteUser, {
@@ -70,18 +83,29 @@ export default function UserTable({ sortBy }: TProps) {
               <TableCell className="cursor-pointer">
                 <Link href={`users/${user?.id}`}>{user?.name}</Link>
               </TableCell>
-              <TableCell>{user?.email}</TableCell>
-              <TableCell className="flex justify-between">
+              {user?.isEdit ? <Input /> : <TableCell>{user?.email}</TableCell>}
+              <TableCell className="flex items-center justify-between">
                 {user?.address}
-                <Button
-                  color="danger"
-                  className="opacity-0 group-hover:opacity-100"
-                  onPress={() => {
-                    deleteUserMutation.mutate(user.id);
-                  }}
-                >
-                  Delete
-                </Button>
+                <div className="flex items-center gap-3 opacity-0 group-hover:opacity-100">
+                  <button
+                    onClick={() => {
+                      console.log(">>>", user);
+                    }}
+                  >
+                    <Icon
+                      icon="bx:edit"
+                      className="text-2xl active:opacity-70"
+                    />
+                  </button>
+                  <Button
+                    color="danger"
+                    onPress={() => {
+                      deleteUserMutation.mutate(user.id);
+                    }}
+                  >
+                    Delete
+                  </Button>
+                </div>
               </TableCell>
             </TableRow>
           );

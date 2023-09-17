@@ -6,4 +6,5 @@ type TGETUsers = {
   followers: number;
   isActive: boolean;
   registeredAt: string;
+  isEdit?: boolean;
 };

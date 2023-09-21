@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Montserrat } from "next/font/google";
+import localFont from "next/font/local";
 
 // Next UI
 import { Providers } from "./providers";
@@ -11,6 +12,15 @@ import { Toaster } from "react-hot-toast";
 import AuthProvider from "./auth/provider";
 
 const inter = Inter({ subsets: ["latin"] });
+
+const montSerrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+});
+
+const poppins = localFont({
+  src: "../public/fonts/poppins-regular-webfont.woff2",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,7 +34,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      <body className={inter.className}>
+      <body className={poppins.className}>
         <AuthProvider>
           <Toaster
             toastOptions={{
